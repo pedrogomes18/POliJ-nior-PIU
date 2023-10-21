@@ -1,15 +1,18 @@
 export const defaultTheme = {
     colors: {
         primary: {
-            light: 'hsl(205 ,74%, 65%)',
-            main: 'hsl(205, 67%, 45%)',
-            dark: 'hsl(205, 87%, 29%)'
+            light: '#4C5155',
+            main: '#202425',
+            dark: '#1A1D1E'
         },
-        secondary: {
-            light: 'hsl(174, 96%, 78%)',
-            main: 'hsl(180, 77%, 47%)',
-            dark: 'hsl(186, 91%, 29%)'
-        }
+        onSurface: {
+            light: '#949494',
+            main: '#545454',
+            dark: '#1E2732'
+        },
+        background: '#151718',
+        white: '#FFF',
+        divider: '#E6EAED'
     },
     space: [4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256],
     radii: {

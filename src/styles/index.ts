@@ -6,7 +6,13 @@ export { theme, defaultTheme };
 export type { Theme };
 
 export const GlobalStyles = createGlobalStyle`
-     *{
+
+    @font-face{
+        font-family: "NunitoRegular";
+        src: url('/assets/fonts/Nunito-Regular.ttf') format('truetype');
+    }
+
+    *{
         margin: 0;
         padding: 0;
         box-sizing: border-box;
