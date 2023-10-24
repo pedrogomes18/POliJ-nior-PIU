@@ -80,21 +80,19 @@ const HomeTemplate = () => (
             </S.Div>
             <S.Linha />
 
-            <CardItem></CardItem>
-            <CardItem></CardItem>
-            <CardItem></CardItem>
+            <CardItem text="t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English." name="Giovani Ciolin" username="Giornio" image="/assets/img/ImagesUser/pedro.png"></CardItem>
+            <CardItem text="t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English." name="Pedro Gomes" username="Mixers18" image="/assets/img/ImagesUser/dog.jpeg"></CardItem>
+            <CardItem text="t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English." name="Allan Douglas" username="Quatyli" image="/assets/img/ImagesUser/cat.jpg"></CardItem>
         </S.Feed>
         <S.Article>
             <S.ContainerTitle>
                 <img src="/assets/img/ImagesAltas/Frame.svg" alt="Icone Piu" />
                 <S.Title>Pius em alta</S.Title>
             </S.ContainerTitle>
-            <CardItemArticle />
-            <CardItemArticle />
-            <CardItemArticle />
-            <CardItemArticle />
-            <CardItemArticle />
-            <CardItemArticle />
+            <CardItemArticle image="/assets/img/ImagesAltas/justica.png" titulo="BLÁ, BLÁ, BLÁ" texto="askljdjklasdjlkasjlçd"/>
+            <CardItemArticle image="/assets/img/ImagesAltas/justica.png" titulo="" texto="" />
+            <CardItemArticle  image="/assets/img/ImagesAltas/justica.png" titulo="" texto=""/>
+            <CardItemArticle image="/assets/img/ImagesAltas/justica.png" titulo="" texto="" />
         </S.Article>
     </S.Container>
 );

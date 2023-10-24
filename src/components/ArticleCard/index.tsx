@@ -1,14 +1,19 @@
 import * as S from './styles'
+interface Props{
+    titulo: string;
+    texto: string;
+    image: string;
+}
 
-const CardItemArticle  = () =>(
+const CardItemArticle:React.FC<Props>  = ({titulo, texto, image}) =>(
     <S.DivPrimary>
         <S.DivContainer>
             <div>
-                <img src="/assets/img/ImagesAltas/justica.png" alt="Justiça" />
+                <img src={image} alt={titulo} />
             </div>
             <div>
-                <h3>Eleições 2022</h3>
-                <p>Eleição em São Paulo: veja Pius sobre a disputa de segundo turno entre Neymar e Vini Jr.</p>
+                <h3>{titulo}</h3>
+                <p>{texto}</p>
             </div>
         </S.DivContainer>
     </S.DivPrimary>
