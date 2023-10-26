@@ -65,6 +65,22 @@ export const DivTree = styled.div`
             font-weight: 400;
             line-height: normal;
             padding-right: 8px;
+
+            button{
+                background: transparent;
+                display: flex;
+                cursor: pointer;
+                align-items: center;
+                justify-content: space-around;
+                color: #ECEDEE;
+                font-family: NunitoRegular;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                border: none;
+                padding-right: 8px;
+            }
         }
     }
 

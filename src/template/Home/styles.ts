@@ -41,20 +41,19 @@ export const Menu = styled.div`
         }
     }
 
-    > .MenuContainer{
+    > .MenuContainer {
         display: flex;
         justify-content: flex-start;
         align-items: flex-start;
         flex-direction: column;
         width: 100%;
         height: auto;
-        
-        ul{
+        ul {
             list-style-type: none;
             width: 95%;
             height: auto;
 
-            li{
+            li {
                 color: ${defaultTheme.colors.white};
                 font-family: NunitoRegular;
                 padding: 16px 8px;
@@ -81,8 +80,8 @@ export const Menu = styled.div`
                 background-color: ${defaultTheme.colors.primary.main};
             }
 
-            li:first-child{
-                background-color:#3E63DD;
+            li.action {
+                background-color: #3e63dd;
             }
         }
     }
