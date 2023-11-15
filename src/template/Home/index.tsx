@@ -115,7 +115,10 @@ const HomeTemplate = () => {
             </S.Feed>
             <S.Article>
                 <S.ContainerTitle>
-                    <img src="/assets/img/ImagesAltas/Frame.svg" alt="Icone Piu" />
+                    <img
+                        src="/assets/img/ImagesAltas/Frame.svg"
+                        alt="Icone Piu"
+                    />
                     <S.Title>Pius em alta</S.Title>
                 </S.ContainerTitle>
                 <CardItemArticle

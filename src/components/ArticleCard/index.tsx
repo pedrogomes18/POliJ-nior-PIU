@@ -1,11 +1,12 @@
-import * as S from './styles'
-interface Props{
+import * as S from './styles';
+
+interface Props {
     titulo: string;
     texto: string;
     image: string;
 }
 
-const CardItemArticle:React.FC<Props>  = ({titulo, texto, image}) =>(
+const CardItemArticle: React.FC<Props> = ({ titulo, texto, image }) => (
     <S.DivPrimary>
         <S.DivContainer>
             <div>
@@ -17,6 +18,6 @@ const CardItemArticle:React.FC<Props>  = ({titulo, texto, image}) =>(
             </div>
         </S.DivContainer>
     </S.DivPrimary>
-)
+);
 
 export default CardItemArticle;

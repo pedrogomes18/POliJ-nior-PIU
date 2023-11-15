@@ -12,6 +12,11 @@ export const GlobalStyles = createGlobalStyle`
         src: url('/assets/fonts/Nunito-Regular.ttf') format('truetype');
     }
 
+    @font-face {
+        font-family: "PoppinsRegular";
+        src: url('/assets/fonts/Poppins-Regular.ttf');
+    }
+
     *{
         margin: 0;
         padding: 0;
