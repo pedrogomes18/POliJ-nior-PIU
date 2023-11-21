@@ -86,22 +86,31 @@ export const Menu = styled.div`
         }
     }
 
-    > .userPhoto{
+    > .userPhoto {
         width: 64px;
         height: 64px;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 16px auto;
+        margin: 24px auto;
         border-radius: 50%;
-
-
-        > img{
+        > img {
             width: 64px;
             height: 64px;
             border: none;
             border-radius: 50%;
+        }
 
+        > button {
+            margin-top: 24px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            > img {
+                width: 80%;
+                height: 80%;
+            }
         }
     }
 `;
