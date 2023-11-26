@@ -18,6 +18,9 @@ export const Wrapper = styled.div`
         font-size: 24px;
         margin-right: 16px;
         text-align: center;
+        @media only screen and (max-width: 770px) {
+            display: block;
+        }
 
         > span {
             display: inline-block;
@@ -31,10 +34,16 @@ export const Wrapper = styled.div`
         width: 0.1%;
         margin: 10px 20px;
         height: 70%;
+        @media only screen and (max-width: 770px) {
+            display: none;
+        }
     }
     img {
         width: 50%;
         height: 40%;
+        @media only screen and (max-width: 770px) {
+            display: none;
+        }
     }
 
     @keyframes bounce {
