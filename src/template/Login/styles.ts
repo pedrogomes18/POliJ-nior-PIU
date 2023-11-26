@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { defaultTheme } from 'styles';
 
 export const Div = styled.div`
     width: 100%;
@@ -7,6 +6,10 @@ export const Div = styled.div`
     display: flex;
     flex-direction: row;
     display: flex;
+
+    @media only screen and (max-width: 770px) {
+        display: block;
+    }
 `;
 
 export const Section = styled.section`
@@ -97,5 +100,11 @@ export const Section = styled.section`
             --institutional-blue-fade,
             linear-gradient(270deg, #004c97 -0.02%, #33a8eb 99.98%)
         );
+        @media only screen and (max-width: 770px) {
+            display: none;
+            > img {
+                display: none;
+            }
+        }
     }
 `;

@@ -1,5 +1,9 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { defaultTheme } from 'styles';
+
+interface MenuProps {
+    isOpened: boolean;
+}
 
 export const Container = styled.div`
     display: flex;
@@ -10,25 +14,38 @@ export const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     background-color: ${defaultTheme.colors.background};
+
+    @media only screen and (max-width: 770px) {
+        display: inline-flexbox;
+    }
 `;
 
 export const MenuButton = styled.button`
     display: none;
     @media only screen and (max-width: 770px) {
         display: block;
+        z-index: 200;
         margin-right: 16px;
-        background-color: black;
+        background-color: transparent;
+        border: none;
         cursor: pointer;
-        :hover {
-            background-color: green;
-        }
     }
 `;
 
-export const Menu = styled.div`
+export const Menu = styled.div<MenuProps>`
+    @media only screen and (max-width: 770px) {
+        ${({ isOpened }) => css`
+            display: ${isOpened ? 'block' : 'none'};
+            width: 70%;
+            height: 100vh;
+            overflow-y: hidden;
+        `}
+    }
+
     width: 30%;
+    display: block;
     max-height: 100vh;
-    overflow-y: scroll;
+    overflow-y: hidden;
     padding-right: 10px;
     background-color: ${defaultTheme.colors.primary.dark};
 
@@ -36,7 +53,6 @@ export const Menu = styled.div`
         width: 100%;
         height: auto;
         padding: 24px;
-        margin-bottom: 8px;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -51,6 +67,21 @@ export const Menu = styled.div`
             font-weight: 500;
             line-height: normal;
             letter-spacing: 6px;
+        }
+
+        @media only screen and (max-width: 770px) {
+            width: 100%;
+            padding: 32px 24px;
+            margin: 0;
+
+            > img {
+                width: 24px;
+                height: 24px;
+            }
+
+            > h2 {
+                font-size: 16px;
+            }
         }
     }
 
@@ -78,11 +109,15 @@ export const Menu = styled.div`
                 justify-content: flex-start;
                 font-size: 18px;
                 cursor: pointer;
-                margin: 16px 0;
+                margin: 8px 0;
                 font-style: normal;
                 font-weight: 700;
                 line-height: normal;
                 transition: background-color 0.2s ease;
+
+                @media only screen and (max-width: 770px) {
+                    font-size: 16px;
+                }
                 > h3 {
                     margin-left: 10px;
                 }
@@ -99,29 +134,103 @@ export const Menu = styled.div`
     }
 
     > .userPhoto {
-        width: 64px;
-        height: 64px;
+        width: 56px;
+        height: 56px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         margin: 24px auto;
         border-radius: 50%;
+
         > img {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             border: none;
             border-radius: 50%;
         }
 
         > button {
-            margin-top: 24px;
+            margin-top: 8px;
             cursor: pointer;
             background: transparent;
             border: none;
             > img {
                 width: 80%;
                 height: 80%;
+            }
+        }
+
+        @media only screen and (max-width: 770px) {
+            width: 70%;
+            height: auto;
+            border-top: 1px solid #004c97;
+            padding: 32px 16px 16px 16px;
+            margin: 32px auto;
+            border-radius: 0;
+
+            > img {
+                width: 56px;
+                height: 56px;
+            }
+
+            > button {
+                margin-top: 16px;
+
+                > img {
+                    width: 75%;
+                    height: 75%;
+                }
+            }
+        }
+    }
+`;
+
+export const HeaderContainer = styled.div`
+    display: none;
+
+    @media only screen and (max-width: 770px) {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        padding: 32px;
+        background-image: linear-gradient(to left, #004c97, #33a8eb);
+        clip-path: polygon(
+            50% 0%,
+            100% 0,
+            100% 50%,
+            100% 90%,
+            80% 95%,
+            50% 99%,
+            20% 95%,
+            0 90%,
+            0% 35%,
+            0 0
+        );
+
+        > div {
+            display: flex;
+            margin: 0 auto;
+            background-color: transparent;
+            padding-bottom: 0;
+            align-items: center;
+            justify-content: center;
+
+            > img {
+                width: 32px;
+                height: 32px;
+            }
+
+            > h2 {
+                color: #ecedee;
+                font-family: NunitoRegular;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                margin-left: 8px;
+                line-height: normal;
+                letter-spacing: 3.5px;
             }
         }
     }
@@ -133,12 +242,24 @@ export const Feed = styled.div`
     overflow-y: scroll;
     padding: 32px;
     background-color: #151718;
+
+    @media only screen and (max-width: 770px) {
+        padding: 0;
+        width: 100%;
+        max-height: 100vh;
+        z-index: 100;
+        overflow-x: hidden;
+    }
 `;
 
 export const Div = styled.div`
     width: 100%;
     height: auto;
     background-color: transparent;
+
+    @media only screen and (max-width: 770px) {
+        padding: 32px;
+    }
 `;
 
 export const Article = styled.div`
@@ -147,6 +268,10 @@ export const Article = styled.div`
     overflow-y: scroll;
     padding-left: 10px;
     background-color: ${defaultTheme.colors.primary.dark};
+
+    @media only screen and (max-width: 770px) {
+        display: none;
+    }
 `;
 
 export const InputContainer = styled.div`

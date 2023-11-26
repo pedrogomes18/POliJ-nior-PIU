@@ -2,6 +2,7 @@ import CardItem from 'components/CardComponent';
 import CardItemArticle from 'components/ArticleCard';
 import ModalComponent from 'components/ModalComponent';
 import { Dispatch, SetStateAction, useState } from 'react';
+import { useRouter } from 'next/router';
 import * as S from './styles';
 
 const HomeTemplate = () => {
@@ -9,6 +10,7 @@ const HomeTemplate = () => {
         number | null,
         Dispatch<SetStateAction<number | null>>
     ] = useState<number | null>(null);
+    const router = useRouter();
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -24,14 +26,16 @@ const HomeTemplate = () => {
 
     const handleClick = (id: number | SetStateAction<number | null>) => {
         setSelectedItem(id);
+        if (id !== 1) {
+            router.push('Found');
+        } else {
+            router.reload();
+        }
     };
 
     return (
         <S.Container>
-            <S.MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                Menu Button
-            </S.MenuButton>
-            <S.Menu>
+            <S.Menu isOpened={isMenuOpen}>
                 <div className="title">
                     <img
                         src="/assets/img/IconsMenu/periquito.svg"
@@ -71,12 +75,27 @@ const HomeTemplate = () => {
                             alt="Imagem Sair"
                         />
                     </button>
-                    {isOpen && (
-                        <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen} />
-                    )}
                 </div>
             </S.Menu>
             <S.Feed>
+                {isOpen && (
+                    <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen} />
+                )}
+                <S.HeaderContainer>
+                    <S.MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                        <img
+                            src="/assets/img/ImageButtons/hamburguer.svg"
+                            alt="HAMBURGUER"
+                        />
+                    </S.MenuButton>
+                    <div>
+                        <img
+                            src="/assets/img/IconsMenu/periquito.svg"
+                            alt="Periquito"
+                        />
+                        <h2>PIUPIUWER</h2>
+                    </div>
+                </S.HeaderContainer>
                 <S.Div>
                     <S.InputContainer>
                         <S.Input placeholder="Ouvir um piu..." />
