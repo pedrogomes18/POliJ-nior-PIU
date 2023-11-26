@@ -1,12 +1,17 @@
 import CardItem from 'components/CardComponent';
 import CardItemArticle from 'components/ArticleCard';
 import ModalComponent from 'components/ModalComponent';
-import { SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import * as S from './styles';
 
 const HomeTemplate = () => {
-    const [selectedItem, setSelectedItem] = useState(null);
+    const [selectedItem, setSelectedItem]: [
+        number | null,
+        Dispatch<SetStateAction<number | null>>
+    ] = useState<number | null>(null);
+
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
     const menuItems = [
         { id: 1, text: 'Página Inicial', foto: 'home' },
@@ -17,12 +22,15 @@ const HomeTemplate = () => {
         { id: 6, text: 'Configurações', foto: 'engrenagem' }
     ];
 
-    const handleClick = (id: number | SetStateAction<null>) => {
+    const handleClick = (id: number | SetStateAction<number | null>) => {
         setSelectedItem(id);
     };
 
     return (
         <S.Container>
+            <S.MenuButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                Menu Button
+            </S.MenuButton>
             <S.Menu>
                 <div className="title">
                     <img

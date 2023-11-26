@@ -12,6 +12,19 @@ export const Container = styled.div`
     background-color: ${defaultTheme.colors.background};
 `;
 
+export const MenuButton = styled.button`
+    display: none;
+    @media only screen and (max-width: 770px) {
+        display: block;
+        margin-right: 16px;
+        background-color: black;
+        cursor: pointer;
+        :hover {
+            background-color: green;
+        }
+    }
+`;
+
 export const Menu = styled.div`
     width: 30%;
     max-height: 100vh;
@@ -19,7 +32,7 @@ export const Menu = styled.div`
     padding-right: 10px;
     background-color: ${defaultTheme.colors.primary.dark};
 
-    > .title{
+    > .title {
         width: 100%;
         height: auto;
         padding: 24px;
@@ -29,7 +42,7 @@ export const Menu = styled.div`
         justify-content: center;
         align-items: center;
 
-        >h2{
+        > h2 {
             color: ${defaultTheme.colors.white};
             font-family: NunitoRegular;
             font-size: 24px;
@@ -37,7 +50,7 @@ export const Menu = styled.div`
             font-style: normal;
             font-weight: 500;
             line-height: normal;
-            letter-spacing: 6px; 
+            letter-spacing: 6px;
         }
     }
 
@@ -58,8 +71,8 @@ export const Menu = styled.div`
                 font-family: NunitoRegular;
                 padding: 16px 8px;
                 display: flex;
-                border-radius: 0px 80px 80px 0px; 
-                align-self: stretch; 
+                border-radius: 0px 80px 80px 0px;
+                align-self: stretch;
                 flex-direction: row;
                 align-items: center;
                 justify-content: flex-start;
@@ -70,13 +83,12 @@ export const Menu = styled.div`
                 font-weight: 700;
                 line-height: normal;
                 transition: background-color 0.2s ease;
-                
-                >h3{
+                > h3 {
                     margin-left: 10px;
                 }
             }
 
-            li:hover{
+            li:hover {
                 background-color: ${defaultTheme.colors.primary.main};
             }
 
@@ -126,7 +138,7 @@ export const Feed = styled.div`
 export const Div = styled.div`
     width: 100%;
     height: auto;
-    background-color: transparent
+    background-color: transparent;
 `;
 
 export const Article = styled.div`
@@ -147,7 +159,6 @@ export const InputContainer = styled.div`
     margin-bottom: 46px;
     border-radius: 8px;
     background-color: ${defaultTheme.colors.primary.light};
-
 `;
 
 export const Input = styled.input`
@@ -173,7 +184,7 @@ export const ContainerPiar = styled.section`
     background-color: ${defaultTheme.colors.primary.light};
     display: flex;
     padding: 24px;
-    border-radius:8px;
+    border-radius: 8px;
     flex-direction: column;
     justify-content: space-between;
 `;
@@ -212,7 +223,6 @@ export const BtnImg = styled.button`
     outline: none;
     border: none;
     border-radius: 5px;
-
 `;
 
 export const ImgBtn = styled.img`
@@ -225,8 +235,8 @@ export const BtnEnviar = styled(BtnImg)`
 `;
 
 export const Linha = styled.hr`
-    margin: 46px 0 ;
-    background-color: #4C5155;
+    margin: 46px 0;
+    background-color: #4c5155;
 `;
 
 export const ContainerTitle = styled.div`
@@ -240,11 +250,10 @@ export const ContainerTitle = styled.div`
     align-items: center;
     border-bottom: 1px solid ${defaultTheme.colors.primary.light};
 
-     >img{
+    > img {
         width: 32px;
-        height:32px;
-        
-     }
+        height: 32px;
+    }
 `;
 
 export const Title = styled.h1`
