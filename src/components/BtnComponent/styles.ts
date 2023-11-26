@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { defaultTheme } from 'styles';
 
 export const BtnLogin = styled.button`
     border-radius: 16px;

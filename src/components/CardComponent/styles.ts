@@ -37,11 +37,13 @@ export const DivSecundary = styled.div`
 
     > p {
         color: #ecedee;
-        font-size: 18px;
+        font-size: 20px;
         font-style: normal;
         font-family: NunitoRegular;
         font-weight: 400;
+        text-align: justify;
         line-height: normal;
+        margin-left: 8px;
     }
 `;
 
@@ -103,6 +105,8 @@ export const ImgUser = styled.img`
     background-color: blue;
     border: none;
     border-radius: 50%;
+    max-width: 90px;
+    max-height: 90px;
 `;
 
 export const Div = styled.div`
@@ -120,7 +124,7 @@ export const Div = styled.div`
 
     p {
         font-family: NunitoRegular;
-        font-size: 14px;
+        font-size: 16px;
         font-style: normal;
         font-weight: 400;
         line-height: 24px;
@@ -129,7 +133,7 @@ export const Div = styled.div`
 
     h2 {
         font-family: NunitoRegular;
-        font-size: 18px;
+        font-size: 20px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;

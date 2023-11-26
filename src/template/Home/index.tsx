@@ -1,8 +1,10 @@
 import CardItem from 'components/CardComponent';
 import CardItemArticle from 'components/ArticleCard';
 import ModalComponent from 'components/ModalComponent';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import IPiu from 'interfaces/IPiu';
+import PiuService from 'services/PiuService';
 import * as S from './styles';
 
 const HomeTemplate = () => {
@@ -14,6 +16,18 @@ const HomeTemplate = () => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const [pius, setPius] = useState<IPiu[]>([]);
+    const [like, setLikes] = useState<IPiuLike[]>([]);
+    const [reloader, setReloader] = useState(false);
+
+    useEffect(() => {
+        const fetchPius = async () => {
+            const response = await PiuService.getPius();
+            setPius(response);
+        };
+
+        fetchPius();
+    }, [reloader]);
 
     const menuItems = [
         { id: 1, text: 'Página Inicial', foto: 'home' },
@@ -133,24 +147,19 @@ const HomeTemplate = () => {
                 </S.Div>
                 <S.Linha />
 
-                <CardItem
-                    text="t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
-                    name="Giovani Ciolin"
-                    username="Giornio"
-                    image="/assets/img/ImagesUser/pedro.png"
-                />
-                <CardItem
-                    text="t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
-                    name="Pedro Gomes"
-                    username="Mixers18"
-                    image="/assets/img/ImagesUser/dog.jpeg"
-                />
-                <CardItem
-                    text="t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
-                    name="Allan Douglas"
-                    username="Quatyli"
-                    image="/assets/img/ImagesUser/cat.jpg"
-                />
+                {pius.map((piu: IPiu) => {
+                    return (
+                        <CardItem
+                            key={piu.id}
+                            name={piu.user.firstName}
+                            username={piu.user.username}
+                            image={piu.user.avatar}
+                            text={piu.text}
+                            id={piu.user.id}
+                            like={piu.likes}
+                        />
+                    );
+                })}
             </S.Feed>
             <S.Article>
                 <S.ContainerTitle>

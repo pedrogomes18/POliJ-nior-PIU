@@ -5,7 +5,7 @@ import api from 'services/api';
 
 import UserService from 'services/UserService';
 
-import User from '../interfaces/User';
+import User from '../interfaces/IUser';
 
 interface ILoginRequest {
     email: string;

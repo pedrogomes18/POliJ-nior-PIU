@@ -1,15 +1,25 @@
 /* eslint-disable react/button-has-type */
 import { useState } from 'react';
+import IPiuLike from 'interfaces/IPiuLike';
 import * as S from './styles';
 
 interface Props {
     name: string;
     username: string;
     image: string;
+    id: string;
     text: string;
+    like: IPiuLike;
 }
 
-const CardItem: React.FC<Props> = ({ name, username, image, text }) => {
+const CardItem: React.FC<Props> = ({
+    name,
+    username,
+    image,
+    text,
+    id,
+    like
+}) => {
     const [arrowCount, setArrowCount] = useState(0);
     const [chatCount, setChatCount] = useState(0);
     const [heartCount, setHeartCount] = useState(0);
@@ -44,6 +54,7 @@ const CardItem: React.FC<Props> = ({ name, username, image, text }) => {
 
                     <S.Div>
                         <h2>{name}</h2>
+                        <h2>{id}</h2>
                         <p>@{username}</p>
                     </S.Div>
                     <S.ImgBtn src="/assets/img/ImageButtons/lixeira.svg" />
@@ -99,7 +110,7 @@ const CardItem: React.FC<Props> = ({ name, username, image, text }) => {
                                     alt="Icone Coração"
                                 />
                             )}
-                            {heartCount}
+                            {Object.keys(like).length}
                         </button>
                     </li>
                 </ul>

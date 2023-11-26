@@ -16,26 +16,26 @@ export const DivContainer = styled.div`
     justify-content: center;
     align-items: flex-end;
 
-    > div{
+    > div {
         background-color: transparent;
         padding: 4px;
 
-        >img{
+        > img {
             width: 112px;
             height: 112px;
-            flex-shrink: 0; 
+            flex-shrink: 0;
         }
 
-        >h3{
+        > h3 {
             font-family: NunitoRegular;
             font-size: 18px;
-            color:${defaultTheme.colors.white};
+            color: ${defaultTheme.colors.white};
             font-style: normal;
             font-weight: 700;
-            line-height: normal; 
+            line-height: normal;
         }
 
-        > p{
+        > p {
             color: ${defaultTheme.colors.white};
             font-feature-settings: 'clig' off, 'liga' off;
             /* Body/Body Normal */
@@ -44,7 +44,7 @@ export const DivContainer = styled.div`
             font-style: normal;
             font-weight: 400;
             line-height: 24px; /* 171.429% */
-            letter-spacing: 0.5px; 
+            letter-spacing: 0.5px;
         }
     }
 `;
