@@ -11,6 +11,7 @@ export const defaultTheme = {
             dark: '#1E2732'
         },
         background: '#151718',
+        modalColor: '#202425',
         white: '#FFF',
         divider: '#E6EAED'
     },

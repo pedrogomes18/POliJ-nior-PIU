@@ -17,6 +17,11 @@ export const GlobalStyles = createGlobalStyle`
         src: url('/assets/fonts/Poppins-Regular.ttf');
     }
 
+    @font-face {
+        font-family: "InterRegular";
+        src: url('/assets/fonts/Inter-Regular.ttf');
+    }
+
     *{
         margin: 0;
         padding: 0;

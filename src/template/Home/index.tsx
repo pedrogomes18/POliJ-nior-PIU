@@ -1,12 +1,12 @@
 import CardItem from 'components/CardComponent';
 import CardItemArticle from 'components/ArticleCard';
+import ModalComponent from 'components/ModalComponent';
 import { SetStateAction, useState } from 'react';
-import { useRouter } from 'next/router';
 import * as S from './styles';
 
 const HomeTemplate = () => {
     const [selectedItem, setSelectedItem] = useState(null);
-    const router = useRouter();
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const menuItems = [
         { id: 1, text: 'Página Inicial', foto: 'home' },
@@ -57,12 +57,15 @@ const HomeTemplate = () => {
                         alt="Usuário FOTO"
                     />
 
-                    <button type="button" onClick={() => router.push('login')}>
+                    <button type="button" onClick={() => setIsOpen(!isOpen)}>
                         <img
                             src="/assets/img/ImagensLogin/Logout.svg"
                             alt="Imagem Sair"
                         />
                     </button>
+                    {isOpen && (
+                        <ModalComponent isOpen={isOpen} setIsOpen={setIsOpen} />
+                    )}
                 </div>
             </S.Menu>
             <S.Feed>
