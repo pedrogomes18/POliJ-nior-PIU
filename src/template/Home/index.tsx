@@ -17,8 +17,7 @@ const HomeTemplate = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [pius, setPius] = useState<IPiu[]>([]);
-    const [like, setLikes] = useState<IPiuLike[]>([]);
-    const [reloader, setReloader] = useState(false);
+    const [reloader] = useState(false);
 
     useEffect(() => {
         const fetchPius = async () => {
@@ -155,7 +154,6 @@ const HomeTemplate = () => {
                             username={piu.user.username}
                             image={piu.user.avatar}
                             text={piu.text}
-                            id={piu.user.id}
                             like={piu.likes}
                         />
                     );

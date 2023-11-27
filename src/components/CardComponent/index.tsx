@@ -7,22 +7,14 @@ interface Props {
     name: string;
     username: string;
     image: string;
-    id: string;
     text: string;
-    like: IPiuLike;
+    like: IPiuLike[];
 }
 
-const CardItem: React.FC<Props> = ({
-    name,
-    username,
-    image,
-    text,
-    id,
-    like
-}) => {
-    const [arrowCount, setArrowCount] = useState(0);
-    const [chatCount, setChatCount] = useState(0);
-    const [heartCount, setHeartCount] = useState(0);
+const CardItem: React.FC<Props> = ({ name, username, image, text, like }) => {
+    const [arrowCount, setArrowCount] = useState(21);
+    const [chatCount, setChatCount] = useState(13);
+    const [heartCount, setHeartCount] = useState(like.length);
     const [isArrowSelected, setIsArrowSelected] = useState(false);
     const [isChatSelected, setIsChatSelected] = useState(false);
     const [isHeartSelected, setIsHeartSelected] = useState(false);
@@ -54,7 +46,6 @@ const CardItem: React.FC<Props> = ({
 
                     <S.Div>
                         <h2>{name}</h2>
-                        <h2>{id}</h2>
                         <p>@{username}</p>
                     </S.Div>
                     <S.ImgBtn src="/assets/img/ImageButtons/lixeira.svg" />
@@ -110,7 +101,7 @@ const CardItem: React.FC<Props> = ({
                                     alt="Icone Coração"
                                 />
                             )}
-                            {Object.keys(like).length}
+                            {heartCount}
                         </button>
                     </li>
                 </ul>
