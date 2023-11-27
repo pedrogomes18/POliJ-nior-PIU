@@ -44,7 +44,7 @@ export const Menu = styled.div<MenuProps>`
 
     width: 30%;
     display: block;
-    max-height: 100vh;
+    min-height: 100vh;
     overflow-y: hidden;
     padding-right: 10px;
     background-color: ${defaultTheme.colors.primary.dark};
@@ -52,7 +52,7 @@ export const Menu = styled.div<MenuProps>`
     > .title {
         width: 100%;
         height: auto;
-        padding: 24px;
+        padding: 32px 24px;
         display: flex;
         flex-direction: row;
         justify-content: center;

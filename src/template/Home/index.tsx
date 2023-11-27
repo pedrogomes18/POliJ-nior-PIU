@@ -13,11 +13,16 @@ const HomeTemplate = () => {
         Dispatch<SetStateAction<number | null>>
     ] = useState<number | null>(null);
     const router = useRouter();
-
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [pius, setPius] = useState<IPiu[]>([]);
     const [reloader] = useState(false);
+    const [img, setImage] = useState<string | undefined>();
+
+    useEffect(() => {
+        const response = router.query.image;
+        setImage(response as string | undefined);
+    }, [reloader, router.query]);
 
     useEffect(() => {
         const fetchPius = async () => {
@@ -78,8 +83,8 @@ const HomeTemplate = () => {
                 </div>
                 <div className="userPhoto">
                     <img
-                        src="/assets/img/IconsMenu/user.png"
-                        alt="Usuário FOTO"
+                        src="/assets/img/ImagesUser/pedro.png"
+                        alt="GRANDE SCRUM MASTER"
                     />
 
                     <button type="button" onClick={() => setIsOpen(!isOpen)}>

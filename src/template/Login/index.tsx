@@ -29,20 +29,16 @@ const LoginTemplate = () => {
                             place="Celular, E-mail ou nome de usuário"
                             id="InputUser"
                             name="InputUser"
-                            value={email}
                             setValue={setEmail}
                         />
-                        {console.log(`O valor do email é ${email}`)}
 
                         <InputComponent
                             type="password"
                             place="Senha"
                             id="InputSenha"
                             name="InputSenha"
-                            value={password}
                             setValue={setPassword}
                         />
-                        {console.log(`O valor do senha é ${password}`)}
                         <a href="#">Esqueceu a Senha?</a>
                     </div>
                     <BtnLogin text="ENTRAR" email={email} password={password} />

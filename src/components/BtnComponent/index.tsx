@@ -11,14 +11,11 @@ interface BtnProps {
 const BtnLogin: React.FC<BtnProps> = ({ text, password, email }) => {
     const router = useRouter();
     const LogarFds = async () => {
-        try {
-            await UserService.login({ email, password });
-            router.push('index');
-        } catch (error) {
-            console.log(`Esse foi o erro ${error}`);
-        }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const response = await UserService.login({ email, password });
+        router.push('index');
     };
-    return <S.BtnLogin onClick={() => LogarFds()}>{text}</S.BtnLogin>;
+    return <S.BtnLogin onClick={LogarFds}>{text}</S.BtnLogin>;
 };
 
 export default BtnLogin;

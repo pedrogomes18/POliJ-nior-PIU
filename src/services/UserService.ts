@@ -17,14 +17,19 @@ interface ILoginResponse {
 
 export default class UserService {
     static async login(data: ILoginRequest): Promise<ILoginResponse> {
-        const response: AxiosResponse<ILoginResponse> = await api.post(
-            '/session/login',
-            data
-        );
+        try {
+            const response: AxiosResponse<ILoginResponse> = await api.post(
+                '/sessions/login',
+                data
+            );
 
-        setCookie(undefined, '@app:token', response.data.token);
-        setCookie(undefined, '@app:useId', response.data.user.id);
+            setCookie(undefined, '@piupiuwer:token', response.data.token);
+            setCookie(undefined, '@piupiuwer:userId', response.data.user.id);
 
-        return response.data;
+            return response.data;
+        } catch (error) {
+            console.error('Erro durante o login:', error);
+            throw error;
+        }
     }
 }
