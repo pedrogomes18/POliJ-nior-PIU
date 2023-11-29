@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import UserService from 'services/UserService';
 import Test from '../InputComponent';
 import * as S from './styles';
@@ -25,17 +25,16 @@ const MainComponent: React.FC = () => {
 
     const handleShowAlert = (text: string) => {
         toast.info(text, {
-            position: toast.POSITION.TOP_CENTER,
-            autoClose: 5000, // Fechar após 5 segundos
+            position: toast.POSITION.BOTTOM_RIGHT,
+            autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
             style: {
-                // Adicione estilos personalizados aqui
-                backgroundColor: '#e64e30',
-                color: '#fff',
+                backgroundColor: '#4e4c4c',
+                color: '#e4dcdc',
                 borderRadius: '8px',
                 boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)'
             }
@@ -53,12 +52,12 @@ const MainComponent: React.FC = () => {
                 const text =
                     'Verifique se o Email e/ou Senha e tente novamente';
                 handleShowAlert(text);
-                alert('tenta dinovo')
                 console.error('Erro ao tentar fazer login:', error);
             }
         } else {
-            // Exibir um alerta ou mensagem ao usuário (evite usar alert padrão)
-            console.error('Erro: Digite corretamente, por favor.');
+            // Não use alert padrão, use o toast para mensagens amigáveis
+            const text = 'Digite corretamente, por favor.';
+            handleShowAlert(text);
         }
     };
 
@@ -92,6 +91,9 @@ const MainComponent: React.FC = () => {
             <S.BtnLogin onClick={handleLogin} isDisabled={isButtonDisabled}>
                 Entrar
             </S.BtnLogin>
+
+            {/* Adicione o ToastContainer aqui */}
+            <ToastContainer />
         </div>
     );
 };
