@@ -25,12 +25,12 @@ const Test: React.FC<InputProps> = ({ place, type, id, name, setValue }) => {
                 type={type}
                 id={id}
                 name={name}
-                isEmpty={isEmpty}
+                className={isEmpty ? 'empty' : ''}
             />
             {isEmpty && (
                 <p
                     style={{
-                        color: '#e61919',
+                        color: '#e64e30',
                         fontFamily: 'NunitoRegular',
                         fontSize: '14px'
                     }}

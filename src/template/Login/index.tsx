@@ -2,6 +2,7 @@
 import InputComponent from 'components/InputComponent';
 import BtnLogin from 'components/BtnComponent';
 import { useState } from 'react';
+import LoginComponent from 'components/LoginComponent';
 import * as S from './styles';
 
 const LoginTemplate = () => {
@@ -23,25 +24,7 @@ const LoginTemplate = () => {
 
                 <div className="loger">
                     <h3>Login</h3>
-                    <div className="inputs">
-                        <InputComponent
-                            type="text"
-                            place="Celular, E-mail ou nome de usuário"
-                            id="InputUser"
-                            name="InputUser"
-                            setValue={setEmail}
-                        />
-
-                        <InputComponent
-                            type="password"
-                            place="Senha"
-                            id="InputSenha"
-                            name="InputSenha"
-                            setValue={setPassword}
-                        />
-                        <a href="#">Esqueceu a Senha?</a>
-                    </div>
-                    <BtnLogin text="ENTRAR" email={email} password={password} />
+                    <LoginComponent />
                     <p>
                         Ainda não tem uma conta? <a href="#">Cadastre-se</a>
                     </p>

@@ -79,21 +79,6 @@ export const Section = styled.section`
         }
     }
 
-    .loger > .inputs {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-
-        > a {
-            color: var(--indigo-9, #3e63dd);
-            font-family: NunitoRegular;
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-        }
-    }
-
     &.azulBackground {
         flex: 1;
         background: var(

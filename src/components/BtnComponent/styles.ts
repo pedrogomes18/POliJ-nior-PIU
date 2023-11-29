@@ -5,6 +5,8 @@ export const BtnLogin = styled.button`
     background: var(--indigo-9, #3e63dd);
     padding: 8px 0;
     border: none;
+    width: 100%;
+    margin: 8px 0;
     color: var(--composition-white, #fff);
     text-align: center;
     cursor: pointer;
