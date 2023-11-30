@@ -46,7 +46,6 @@ export default class PiuService {
             const response: AxiosResponse<IPiu> = await api.delete(
                 `/pius/${id}`
             );
-            // window.location.reload();
             return response.data;
         } catch (error) {
             console.log(error);

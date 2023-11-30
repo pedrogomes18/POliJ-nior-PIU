@@ -3,6 +3,8 @@ import CardItemArticle from 'components/ArticleCard';
 import ModalComponent from 'components/ModalComponent';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 import IPiu from 'interfaces/IPiu';
 import PiuService from 'services/PiuService';
 import { parseCookies } from 'nookies';
@@ -60,13 +62,83 @@ const HomeTemplate = () => {
             const createdPiu = await PiuService.createPiu(textPiu);
             setReloader(!reloader);
             setTextPiu('');
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            handleShowAlert('Publicando...', 'sucess');
         } catch (error) {
             console.log(error);
         }
     };
 
+    // eslint-disable-next-line no-shadow
+    const handleShowAlert = (text: string, type: string) => {
+        if (type === 'delete') {
+            toast.info(text, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                style: {
+                    backgroundColor: '#202425',
+                    color: '#fff',
+                    borderRadius: '8px',
+                    boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.1)',
+                    borderLeft: '0px solid #e94e4e',
+                    padding: '16px',
+                    display: 'flex',
+                    fontSize: '12px',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    fontWeight: 'bold'
+                },
+                icon: '❌',
+                progressStyle: {
+                    backgroundColor: '#ff6b6b',
+                    borderRadius: '8px',
+                    height: '4px'
+                }
+            });
+        } else if (type === 'sucess') {
+            toast.info(text, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                style: {
+                    backgroundColor: '#202425',
+                    color: '#fff',
+                    fontSize: '12px',
+                    borderRadius: '12px',
+                    boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.1)',
+                    borderLeft: '0 solid #2e7d32',
+                    padding: '16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    fontWeight: 'bold'
+                },
+                icon: (
+                    <span style={{ color: '#4caf50', fontSize: '20px' }}>
+                        ✔
+                    </span>
+                ),
+                progressStyle: {
+                    backgroundColor: '#2e7d32',
+                    borderRadius: '8px',
+                    height: '4px'
+                }
+            });
+        }
+    };
+
     const handlePiuDeleted = () => {
         setReloader(!reloader);
+        handleShowAlert('Deletando...', 'delete');
     };
 
     return (
@@ -193,6 +265,8 @@ const HomeTemplate = () => {
                         );
                     })}
             </S.Feed>
+            {/* Adicione o ToastContainer aqui */}
+            <ToastContainer />
             <S.Article>
                 <S.ContainerTitle>
                     <img

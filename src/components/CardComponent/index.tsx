@@ -57,9 +57,7 @@ const CardItem: React.FC<Props> = ({
     const handleDeleteClick = async () => {
         try {
             await PiuService.deletePiu(id);
-            // Notifica o componente pai sobre a exclusão
             onPiuDeleted(id);
-            alert('Deletado com sucesso');
         } catch (error) {
             console.error(error);
         }
@@ -77,10 +75,12 @@ const CardItem: React.FC<Props> = ({
                     </S.Div>
                     {/* Renderiza a lixeira apenas se o usuário logado for o autor do Piu */}
                     {loggedInUserId === piuUserId && (
-                        <S.ImgBtn
-                            onClick={handleDeleteClick}
-                            src="/assets/img/ImageButtons/lixeira.svg"
-                        />
+                        <S.BtnLixeira>
+                            <S.ImgBtn
+                                onClick={handleDeleteClick}
+                                src="/assets/img/ImageButtons/lixeira.svg"
+                            />
+                        </S.BtnLixeira>
                     )}
                 </S.InfoUser>
             </S.DivPrimary>

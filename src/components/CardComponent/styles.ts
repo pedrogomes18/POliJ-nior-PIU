@@ -140,7 +140,15 @@ export const Div = styled.div`
     }
 `;
 
+export const BtnLixeira = styled.button`
+    border: none;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+`;
+
 export const ImgBtn = styled.img`
-    width: 24px;
-    height: 24px;
+    width: 100%;
+    height: 100%;
 `;
