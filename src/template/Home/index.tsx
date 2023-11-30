@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import IPiu from 'interfaces/IPiu';
 import PiuService from 'services/PiuService';
+import { parseCookies } from 'nookies';
 import * as S from './styles';
 
 const HomeTemplate = () => {
@@ -18,6 +19,10 @@ const HomeTemplate = () => {
     const [pius, setPius] = useState<IPiu[]>([]);
     const [reloader, setReloader] = useState(false);
     const [textPiu, setTextPiu] = useState<string>('');
+
+    const cookies = parseCookies();
+    const userIdLogged = cookies['@piupiuwer:userId'];
+
     const menuItems = [
         { id: 1, text: 'Página Inicial', foto: 'home' },
         { id: 2, text: 'Notificações', foto: 'sino' },
@@ -58,6 +63,10 @@ const HomeTemplate = () => {
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const handlePiuDeleted = () => {
+        setReloader(!reloader);
     };
 
     return (
@@ -176,6 +185,10 @@ const HomeTemplate = () => {
                                 image={piu.user.avatar}
                                 text={piu.text}
                                 like={piu.likes}
+                                id={piu.id}
+                                loggedInUserId={userIdLogged}
+                                piuUserId={piu.user.id}
+                                onPiuDeleted={handlePiuDeleted}
                             />
                         );
                     })}

@@ -1,17 +1,33 @@
 /* eslint-disable react/button-has-type */
+// eslint-disable-next-line react/button-has-type
 import { useState } from 'react';
 import IPiuLike from 'interfaces/IPiuLike';
 import * as S from './styles';
+import PiuService from '../../services/PiuService';
 
 interface Props {
+    id: string;
     name: string;
     username: string;
     image: string;
     text: string;
     like: IPiuLike[];
+    loggedInUserId: string;
+    piuUserId: string;
+    onPiuDeleted: (id: string) => void; // Adicionamos um callback para notificar a exclusão
 }
 
-const CardItem: React.FC<Props> = ({ name, username, image, text, like }) => {
+const CardItem: React.FC<Props> = ({
+    id,
+    name,
+    username,
+    image,
+    text,
+    like,
+    loggedInUserId,
+    piuUserId,
+    onPiuDeleted
+}) => {
     const [arrowCount, setArrowCount] = useState(21);
     const [chatCount, setChatCount] = useState(13);
     const [heartCount, setHeartCount] = useState(like.length);
@@ -38,6 +54,17 @@ const CardItem: React.FC<Props> = ({ name, username, image, text, like }) => {
         setIsHeartSelected(!isHeartSelected);
     };
 
+    const handleDeleteClick = async () => {
+        try {
+            await PiuService.deletePiu(id);
+            // Notifica o componente pai sobre a exclusão
+            onPiuDeleted(id);
+            alert('Deletado com sucesso');
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <S.Section>
             <S.DivPrimary>
@@ -48,7 +75,13 @@ const CardItem: React.FC<Props> = ({ name, username, image, text, like }) => {
                         <h2>{name}</h2>
                         <p>@{username}</p>
                     </S.Div>
-                    <S.ImgBtn src="/assets/img/ImageButtons/lixeira.svg" />
+                    {/* Renderiza a lixeira apenas se o usuário logado for o autor do Piu */}
+                    {loggedInUserId === piuUserId && (
+                        <S.ImgBtn
+                            onClick={handleDeleteClick}
+                            src="/assets/img/ImageButtons/lixeira.svg"
+                        />
+                    )}
                 </S.InfoUser>
             </S.DivPrimary>
             <S.DivSecundary>

@@ -37,7 +37,7 @@ export const Menu = styled.div<MenuProps>`
         ${({ isOpened }) => css`
             display: ${isOpened ? 'block' : 'none'};
             width: 70%;
-            height: 100vh;
+            max-height: 100vh;
             overflow-y: hidden;
         `}
     }
@@ -164,6 +164,8 @@ export const Menu = styled.div<MenuProps>`
         @media only screen and (max-width: 770px) {
             width: 70%;
             height: auto;
+            flex-direction: row;
+            gap: 16px;
             border-top: 1px solid #004c97;
             padding: 32px 16px 16px 16px;
             margin: 32px auto;

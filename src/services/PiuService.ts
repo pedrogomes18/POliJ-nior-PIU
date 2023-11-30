@@ -40,4 +40,17 @@ export default class PiuService {
             throw error;
         }
     }
+
+    static async deletePiu(id: string): Promise<IPiu> {
+        try {
+            const response: AxiosResponse<IPiu> = await api.delete(
+                `/pius/${id}`
+            );
+            // window.location.reload();
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
