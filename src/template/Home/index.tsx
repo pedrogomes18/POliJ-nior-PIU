@@ -18,6 +18,7 @@ const HomeTemplate = () => {
     const [pius, setPius] = useState<IPiu[]>([]);
     const [reloader] = useState(false);
     const [img, setImage] = useState<string | undefined>();
+    const [textPiu, setTextPiu] = useState<string>('');
 
     useEffect(() => {
         const response = router.query.image;
@@ -48,6 +49,19 @@ const HomeTemplate = () => {
             router.push('Found');
         } else {
             router.reload();
+        }
+    };
+
+    const envia = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTextPiu(e.target.value);
+    };
+
+    const handlePiu = async () => {
+        try {
+            const createdPiu = await PiuService.createPiu(textPiu);
+            console.log('Piu created successfully:', createdPiu);
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -116,7 +130,10 @@ const HomeTemplate = () => {
                 </S.HeaderContainer>
                 <S.Div>
                     <S.InputContainer>
-                        <S.Input placeholder="Ouvir um piu..." />
+                        <S.Input
+                            placeholder="Ouvir um piu..."
+                            onChange={envia}
+                        />
                         <S.ImgLupa src="/assets/img/lupa.svg" />
                     </S.InputContainer>
 
@@ -143,7 +160,7 @@ const HomeTemplate = () => {
                                 <S.ImgBtn src="/assets/img/ImageButtons/gif.svg" />
                             </S.BtnImg>
 
-                            <S.BtnEnviar>
+                            <S.BtnEnviar onClick={handlePiu}>
                                 <S.ImgBtn src="/assets/img/ImageButtons/aviao.svg" />
                             </S.BtnEnviar>
                         </S.Buttons>

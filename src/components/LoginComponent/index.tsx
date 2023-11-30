@@ -25,7 +25,7 @@ const MainComponent: React.FC = () => {
 
     const handleShowAlert = (text: string) => {
         toast.info(text, {
-            position: toast.POSITION.BOTTOM_RIGHT,
+            position: toast.POSITION.TOP_RIGHT,
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -50,7 +50,7 @@ const MainComponent: React.FC = () => {
                 router.push('index');
             } catch (error) {
                 const text =
-                    'Verifique se o Email e/ou Senha e tente novamente';
+                    'Verifique se o Email e/ou Senha estão corretos e tente novamente';
                 handleShowAlert(text);
                 console.error('Erro ao tentar fazer login:', error);
             }

@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios';
-
 import User from 'interfaces/IUser';
-import { setCookie } from 'nookies';
+import { setCookie, destroyCookie } from 'nookies'; // Importe destroyCookie também
 
 import api from './api';
 
@@ -30,6 +29,19 @@ export default class UserService {
         } catch (error) {
             console.error('Erro durante o login:', error);
             throw error;
+        }
+    }
+
+    static destroyCookies(): void {
+        try {
+            // Destrói os cookies
+            destroyCookie(null, '@piupiuwer:token');
+            destroyCookie(null, '@piupiuwer:userId');
+            // Adicione outros cookies que deseja destruir
+
+            console.log('Cookies destruídos com sucesso.');
+        } catch (error) {
+            console.error('Erro ao destruir cookies:', error);
         }
     }
 }
