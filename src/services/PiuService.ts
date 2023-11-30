@@ -3,10 +3,6 @@ import IPiu from 'interfaces/IPiu';
 import IPiuLike from 'interfaces/IPiuLike';
 import api from './api';
 
-interface IPiuResponse {
-    piu: IPiu;
-}
-
 export default class PiuService {
     static async getPius(): Promise<IPiu[]> {
         const response: AxiosResponse<IPiu[]> = await api.get('/pius/');
@@ -20,18 +16,28 @@ export default class PiuService {
         return response.data;
     }
 
-    static async createPiu(textPiu: string): Promise<IPiu> {
+    static async createPiu(text: string): Promise<IPiu> {
         try {
-            const response: AxiosResponse<IPiuResponse> = await api.post(
+            // Converte o objeto para uma string JSON usando JSON.stringify()
+            const requestBody = JSON.stringify({ text });
+            console.log(text, requestBody);
+
+            const response: AxiosResponse<IPiu> = await api.post(
                 '/pius',
+                requestBody,
                 {
-                    textPiu
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
                 }
             );
-            return response.data.piu;
+
+            console.log(text);
+
+            return response.data;
         } catch (error) {
             console.log(error);
-            throw error; // Rejeitar a Promise para que a chamada do serviço saiba que houve um erro
+            throw error;
         }
     }
 }

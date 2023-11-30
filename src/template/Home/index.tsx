@@ -16,14 +16,16 @@ const HomeTemplate = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [pius, setPius] = useState<IPiu[]>([]);
-    const [reloader] = useState(false);
-    const [img, setImage] = useState<string | undefined>();
+    const [reloader, setReloader] = useState(false);
     const [textPiu, setTextPiu] = useState<string>('');
-
-    useEffect(() => {
-        const response = router.query.image;
-        setImage(response as string | undefined);
-    }, [reloader, router.query]);
+    const menuItems = [
+        { id: 1, text: 'Página Inicial', foto: 'home' },
+        { id: 2, text: 'Notificações', foto: 'sino' },
+        { id: 3, text: 'Mensagens', foto: 'msg' },
+        { id: 4, text: 'Salvos', foto: 'nuvem' },
+        { id: 5, text: 'Perfil', foto: 'perfil' },
+        { id: 6, text: 'Configurações', foto: 'engrenagem' }
+    ];
 
     useEffect(() => {
         const fetchPius = async () => {
@@ -34,15 +36,6 @@ const HomeTemplate = () => {
         fetchPius();
     }, [reloader]);
 
-    const menuItems = [
-        { id: 1, text: 'Página Inicial', foto: 'home' },
-        { id: 2, text: 'Notificações', foto: 'sino' },
-        { id: 3, text: 'Mensagens', foto: 'msg' },
-        { id: 4, text: 'Salvos', foto: 'nuvem' },
-        { id: 5, text: 'Perfil', foto: 'perfil' },
-        { id: 6, text: 'Configurações', foto: 'engrenagem' }
-    ];
-
     const handleClick = (id: number | SetStateAction<number | null>) => {
         setSelectedItem(id);
         if (id !== 1) {
@@ -52,14 +45,16 @@ const HomeTemplate = () => {
         }
     };
 
-    const envia = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Aqui está fznd os PIUS
+    const envia: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
         setTextPiu(e.target.value);
     };
 
     const handlePiu = async () => {
         try {
             const createdPiu = await PiuService.createPiu(textPiu);
-            console.log('Piu created successfully:', createdPiu);
+            setReloader(!reloader);
+            setTextPiu('');
         } catch (error) {
             console.log(error);
         }
@@ -130,15 +125,16 @@ const HomeTemplate = () => {
                 </S.HeaderContainer>
                 <S.Div>
                     <S.InputContainer>
-                        <S.Input
-                            placeholder="Ouvir um piu..."
-                            onChange={envia}
-                        />
+                        <S.Input placeholder="Ouvir um piu..." />
                         <S.ImgLupa src="/assets/img/lupa.svg" />
                     </S.InputContainer>
 
                     <S.ContainerPiar>
-                        <S.TeaxtArea placeholder="Quero dar um piu..." />
+                        <S.TeaxtArea
+                            placeholder="Quero dar um piu..."
+                            value={textPiu}
+                            onChange={envia}
+                        />
                         <S.Buttons>
                             <S.BtnImg>
                                 <S.ImgBtn src="/assets/img/ImageButtons/img.svg" />
@@ -168,18 +164,21 @@ const HomeTemplate = () => {
                 </S.Div>
                 <S.Linha />
 
-                {pius.map((piu: IPiu) => {
-                    return (
-                        <CardItem
-                            key={piu.id}
-                            name={piu.user.firstName}
-                            username={piu.user.username}
-                            image={piu.user.avatar}
-                            text={piu.text}
-                            like={piu.likes}
-                        />
-                    );
-                })}
+                {pius
+                    .slice()
+                    .reverse()
+                    .map((piu: IPiu) => {
+                        return (
+                            <CardItem
+                                key={piu.id}
+                                name={piu.user.firstName}
+                                username={piu.user.username}
+                                image={piu.user.avatar}
+                                text={piu.text}
+                                like={piu.likes}
+                            />
+                        );
+                    })}
             </S.Feed>
             <S.Article>
                 <S.ContainerTitle>
