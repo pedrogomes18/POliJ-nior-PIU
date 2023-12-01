@@ -7,7 +7,7 @@ import ModalComponent from 'components/ModalComponent';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import 'react-toastify/dist/ReactToastify.css';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer, ToastOptions } from 'react-toastify';
 import IPiu from 'interfaces/IPiu';
 import PiuService from 'services/PiuService';
 import { parseCookies } from 'nookies';
@@ -79,69 +79,65 @@ const HomeTemplate = () => {
 
     // eslint-disable-next-line no-shadow
     const handleShowAlert = (text: string, type: string) => {
-        if (type === 'delete') {
-            toast.info(text, {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                style: {
-                    backgroundColor: '#202425',
-                    color: '#fff',
-                    borderRadius: '8px',
-                    boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.1)',
-                    borderLeft: '0px solid #e94e4e',
-                    padding: '16px',
-                    display: 'flex',
-                    fontSize: '12px',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    fontWeight: 'bold'
-                },
-                icon: '❌',
-                progressStyle: {
-                    backgroundColor: '#ff6b6b',
-                    borderRadius: '8px',
-                    height: '4px'
-                }
-            });
-        } else if (type === 'sucess') {
-            toast.info(text, {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                style: {
-                    backgroundColor: '#202425',
-                    color: '#fff',
-                    fontSize: '12px',
-                    borderRadius: '12px',
-                    boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.1)',
-                    borderLeft: '0 solid #2e7d32',
-                    padding: '16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    fontWeight: 'bold'
-                },
-                icon: (
-                    <span style={{ color: '#4caf50', fontSize: '20px' }}>
-                        ✔
-                    </span>
-                ),
-                progressStyle: {
-                    backgroundColor: '#2e7d32',
-                    borderRadius: '8px',
-                    height: '4px'
-                }
-            });
-        }
+        const commonOptions: ToastOptions = {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+        };
+
+        const deleteOptions: ToastOptions = {
+            ...commonOptions,
+            style: {
+                backgroundColor: '#202425',
+                color: '#fff',
+                borderRadius: '8px',
+                boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.1)',
+                borderLeft: '0px solid #e94e4e',
+                padding: '16px',
+                display: 'flex',
+                fontSize: '12px',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                fontWeight: 'bold' as const
+            },
+            icon: '❌',
+            progressStyle: {
+                backgroundColor: '#ff6b6b',
+                borderRadius: '8px',
+                height: '4px'
+            }
+        };
+
+        const successOptions: ToastOptions = {
+            ...commonOptions,
+            style: {
+                backgroundColor: '#202425',
+                color: '#fff',
+                fontSize: '12px',
+                borderRadius: '12px',
+                boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.1)',
+                borderLeft: '0 solid #2e7d32',
+                padding: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                fontWeight: 'bold' as const
+            },
+            icon: <span style={{ color: '#4caf50', fontSize: '20px' }}>✔</span>,
+            progressStyle: {
+                backgroundColor: '#2e7d32',
+                borderRadius: '8px',
+                height: '4px'
+            }
+        };
+
+        const options = type === 'delete' ? deleteOptions : successOptions;
+
+        toast.info(text, options);
     };
 
     const handlePiuDeleted = () => {
