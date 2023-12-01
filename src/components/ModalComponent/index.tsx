@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import UserService from 'services/UserService';
 import * as S from './styles';
 
@@ -11,15 +10,12 @@ export const ModalComponent: React.FC<ModalComponentProps> = ({
     isOpen,
     setIsOpen
 }) => {
-    const router = useRouter();
-
     const handleExit = () => {
         setIsOpen(!isOpen);
     };
 
     const handleYes = () => {
-        UserService.destroyCookies();
-        router.push('/login');
+        UserService.logout();
     };
 
     return (

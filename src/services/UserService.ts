@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import { AxiosResponse } from 'axios';
 import User from 'interfaces/IUser';
-import { setCookie, destroyCookie } from 'nookies'; // Importe destroyCookie também
-
+import { setCookie, destroyCookie } from 'nookies';
+import router from 'next/router';
 import api from './api';
 
 interface ILoginRequest {
@@ -21,10 +22,9 @@ export default class UserService {
                 '/sessions/login',
                 data
             );
-
+            window.location.href = '/index';
             setCookie(undefined, '@piupiuwer:token', response.data.token);
             setCookie(undefined, '@piupiuwer:userId', response.data.user.id);
-
             return response.data;
         } catch (error) {
             console.error('Erro durante o login:', error);
@@ -34,14 +34,22 @@ export default class UserService {
 
     static destroyCookies(): void {
         try {
-            // Destrói os cookies
-            destroyCookie(null, '@piupiuwer:token');
-            destroyCookie(null, '@piupiuwer:userId');
-            // Adicione outros cookies que deseja destruir
-
+            destroyCookie(undefined, '@piupiuwer:token', '');
+            destroyCookie(undefined, '@piupiuwer:userId', '');
             console.log('Cookies destruídos com sucesso.');
         } catch (error) {
             console.error('Erro ao destruir cookies:', error);
+        }
+    }
+
+    static logout(): void {
+        try {
+            this.destroyCookies();
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('userId');
+            router.push('/login');
+        } catch (error) {
+            console.error('Erro ao deslogar', error);
         }
     }
 }

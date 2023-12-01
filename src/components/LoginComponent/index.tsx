@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { toast, ToastContainer } from 'react-toastify';
@@ -47,6 +49,7 @@ const MainComponent: React.FC = () => {
         if (isValid) {
             try {
                 const response = await UserService.login({ email, password });
+                console.log(response.user.username);
                 router.push('index');
             } catch (error) {
                 const text =

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import CardItem from 'components/CardComponent';
 import CardItemArticle from 'components/ArticleCard';
 import ModalComponent from 'components/ModalComponent';
@@ -21,9 +22,7 @@ const HomeTemplate = () => {
     const [pius, setPius] = useState<IPiu[]>([]);
     const [reloader, setReloader] = useState(false);
     const [textPiu, setTextPiu] = useState<string>('');
-
-    const cookies = parseCookies();
-    const userIdLogged = cookies['@piupiuwer:userId'];
+    const [idUser, setIdUser] = useState('');
 
     const menuItems = [
         { id: 1, text: 'Página Inicial', foto: 'home' },
@@ -37,6 +36,9 @@ const HomeTemplate = () => {
     useEffect(() => {
         const fetchPius = async () => {
             const response = await PiuService.getPius();
+            const cookies = parseCookies();
+            const userIdLogged = cookies['@piupiuwer:userId'];
+            setIdUser(userIdLogged);
             setPius(response);
         };
 
@@ -60,6 +62,7 @@ const HomeTemplate = () => {
     const handlePiu = async () => {
         try {
             const createdPiu = await PiuService.createPiu(textPiu);
+            console.log(createdPiu.user.username, createdPiu.createdAt);
             setReloader(!reloader);
             setTextPiu('');
             // eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -139,6 +142,12 @@ const HomeTemplate = () => {
     const handlePiuDeleted = () => {
         setReloader(!reloader);
         handleShowAlert('Deletando...', 'delete');
+    };
+
+    const handlePiuPatch = async (id: string) => {
+        const response = await PiuService.patchPiusLike(id);
+        console.log(response.length, id);
+        setReloader(!reloader);
     };
 
     return (
@@ -258,9 +267,10 @@ const HomeTemplate = () => {
                                 text={piu.text}
                                 like={piu.likes}
                                 id={piu.id}
-                                loggedInUserId={userIdLogged}
+                                loggedInUserId={idUser}
                                 piuUserId={piu.user.id}
                                 onPiuDeleted={handlePiuDeleted}
+                                onPiuPatch={() => handlePiuPatch(piu.id)}
                             />
                         );
                     })}

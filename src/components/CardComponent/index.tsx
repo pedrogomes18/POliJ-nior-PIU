@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 /* eslint-disable react/button-has-type */
 // eslint-disable-next-line react/button-has-type
 import { useState } from 'react';
 import IPiuLike from 'interfaces/IPiuLike';
+import PiuService from 'services/PiuService';
 import * as S from './styles';
-import PiuService from '../../services/PiuService';
 
 interface Props {
     id: string;
@@ -14,7 +15,8 @@ interface Props {
     like: IPiuLike[];
     loggedInUserId: string;
     piuUserId: string;
-    onPiuDeleted: (id: string) => void; // Adicionamos um callback para notificar a exclusão
+    onPiuDeleted: (id: string) => void;
+    onPiuPatch: (id: string) => void;
 }
 
 const CardItem: React.FC<Props> = ({
@@ -26,7 +28,8 @@ const CardItem: React.FC<Props> = ({
     like,
     loggedInUserId,
     piuUserId,
-    onPiuDeleted
+    onPiuDeleted,
+    onPiuPatch
 }) => {
     const [arrowCount, setArrowCount] = useState(21);
     const [chatCount, setChatCount] = useState(13);
@@ -43,15 +46,18 @@ const CardItem: React.FC<Props> = ({
     };
     const handleChatClick = () => {
         setChatCount((prevCount) =>
-            isChatSelected ? prevCount - 1 : prevCount + 1
+            isChatSelected ? heartCount - 1 : prevCount + 1
         );
         setIsChatSelected(!isChatSelected);
     };
-    const handleHeartClick = () => {
-        setHeartCount((prevCount) =>
-            isHeartSelected ? prevCount - 1 : prevCount + 1
-        );
-        setIsHeartSelected(!isHeartSelected);
+    const handleHeartClick = async () => {
+        try {
+            onPiuPatch(id);
+            setHeartCount(isHeartSelected ? heartCount - 1 : heartCount + 1);
+            setIsHeartSelected(!isHeartSelected);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     const handleDeleteClick = async () => {

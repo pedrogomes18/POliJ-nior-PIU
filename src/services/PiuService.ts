@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { AxiosResponse } from 'axios';
 import IPiu from 'interfaces/IPiu';
 import IPiuLike from 'interfaces/IPiuLike';
@@ -18,7 +19,6 @@ export default class PiuService {
 
     static async createPiu(text: string): Promise<IPiu> {
         try {
-            // Converte o objeto para uma string JSON usando JSON.stringify()
             const requestBody = JSON.stringify({ text });
             console.log(text, requestBody);
 
