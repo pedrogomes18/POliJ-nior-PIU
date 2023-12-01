@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-console */
 import CardItem from 'components/CardComponent';
 import CardItemArticle from 'components/ArticleCard';
@@ -23,6 +24,8 @@ const HomeTemplate = () => {
     const [reloader, setReloader] = useState(false);
     const [textPiu, setTextPiu] = useState<string>('');
     const [idUser, setIdUser] = useState('');
+    const [isPiuCreated, setIsPiuCreated] = useState(false);
+    const [shouldAnimateIn, setShouldAnimateIn] = useState(false);
 
     const menuItems = [
         { id: 1, text: 'Página Inicial', foto: 'home' },
@@ -63,10 +66,11 @@ const HomeTemplate = () => {
         try {
             const createdPiu = await PiuService.createPiu(textPiu);
             console.log(createdPiu.user.username, createdPiu.createdAt);
-            setReloader(!reloader);
-            setTextPiu('');
-            // eslint-disable-next-line @typescript-eslint/no-use-before-define
             handleShowAlert('Publicando...', 'sucess');
+            setTextPiu('');
+            setIsPiuCreated(true);
+            setShouldAnimateIn(true);
+            setReloader(!reloader);
         } catch (error) {
             console.log(error);
         }
@@ -77,7 +81,7 @@ const HomeTemplate = () => {
         if (type === 'delete') {
             toast.info(text, {
                 position: toast.POSITION.TOP_CENTER,
-                autoClose: 2000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -106,7 +110,7 @@ const HomeTemplate = () => {
         } else if (type === 'sucess') {
             toast.info(text, {
                 position: toast.POSITION.TOP_CENTER,
-                autoClose: 2000,
+                autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -246,7 +250,12 @@ const HomeTemplate = () => {
                                 <S.ImgBtn src="/assets/img/ImageButtons/gif.svg" />
                             </S.BtnImg>
 
-                            <S.BtnEnviar onClick={handlePiu}>
+                            <S.BtnEnviar
+                                onClick={() => {
+                                    handlePiu();
+                                    setShouldAnimateIn(true); // Ajuste aqui
+                                }}
+                            >
                                 <S.ImgBtn src="/assets/img/ImageButtons/aviao.svg" />
                             </S.BtnEnviar>
                         </S.Buttons>
@@ -271,6 +280,7 @@ const HomeTemplate = () => {
                                 piuUserId={piu.user.id}
                                 onPiuDeleted={handlePiuDeleted}
                                 onPiuPatch={() => handlePiuPatch(piu.id)}
+                                onPiuCreated={() => setIsPiuCreated(false)}
                             />
                         );
                     })}

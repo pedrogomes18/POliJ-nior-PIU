@@ -18,6 +18,7 @@ interface ILoginResponse {
 export default class UserService {
     static async login(data: ILoginRequest): Promise<ILoginResponse> {
         try {
+            this.destroyCookies();
             const response: AxiosResponse<ILoginResponse> = await api.post(
                 '/sessions/login',
                 data
@@ -34,8 +35,10 @@ export default class UserService {
 
     static destroyCookies(): void {
         try {
-            destroyCookie(undefined, '@piupiuwer:token', '');
-            destroyCookie(undefined, '@piupiuwer:userId', '');
+            destroyCookie(undefined, '@piupiuwer:token');
+            destroyCookie(undefined, '@piupiuwer:userId');
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('userId');
             console.log('Cookies destruídos com sucesso.');
         } catch (error) {
             console.error('Erro ao destruir cookies:', error);
@@ -45,9 +48,7 @@ export default class UserService {
     static logout(): void {
         try {
             this.destroyCookies();
-            localStorage.removeItem('userToken');
-            localStorage.removeItem('userId');
-            router.push('/login');
+            window.location.href = '/login';
         } catch (error) {
             console.error('Erro ao deslogar', error);
         }

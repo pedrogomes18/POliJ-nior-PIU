@@ -1,7 +1,8 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-console */
 /* eslint-disable react/button-has-type */
 // eslint-disable-next-line react/button-has-type
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import IPiuLike from 'interfaces/IPiuLike';
 import PiuService from 'services/PiuService';
 import * as S from './styles';
@@ -17,6 +18,7 @@ interface Props {
     piuUserId: string;
     onPiuDeleted: (id: string) => void;
     onPiuPatch: (id: string) => void;
+    onPiuCreated: () => void;
 }
 
 const CardItem: React.FC<Props> = ({
@@ -29,7 +31,8 @@ const CardItem: React.FC<Props> = ({
     loggedInUserId,
     piuUserId,
     onPiuDeleted,
-    onPiuPatch
+    onPiuPatch,
+    onPiuCreated
 }) => {
     const [arrowCount, setArrowCount] = useState(21);
     const [chatCount, setChatCount] = useState(13);
@@ -37,6 +40,13 @@ const CardItem: React.FC<Props> = ({
     const [isArrowSelected, setIsArrowSelected] = useState(false);
     const [isChatSelected, setIsChatSelected] = useState(false);
     const [isHeartSelected, setIsHeartSelected] = useState(false);
+    const [piuIdToDelete, setPiuIdToDelete] = useState<string>('');
+    const [shouldAnimateIn, setShouldAnimateIn] = useState(false);
+
+    useEffect(() => {
+        onPiuCreated();
+        setShouldAnimateIn(true);
+    }, [onPiuCreated]);
 
     const handleArrowClick = () => {
         setArrowCount((prevCount) =>
@@ -44,12 +54,14 @@ const CardItem: React.FC<Props> = ({
         );
         setIsArrowSelected(!isArrowSelected);
     };
+
     const handleChatClick = () => {
         setChatCount((prevCount) =>
             isChatSelected ? heartCount - 1 : prevCount + 1
         );
         setIsChatSelected(!isChatSelected);
     };
+
     const handleHeartClick = async () => {
         try {
             onPiuPatch(id);
@@ -63,14 +75,24 @@ const CardItem: React.FC<Props> = ({
     const handleDeleteClick = async () => {
         try {
             await PiuService.deletePiu(id);
+            // Agora, após a exclusão bem-sucedida, você pode chamar onPiuDeleted
             onPiuDeleted(id);
+            setPiuIdToDelete(id);
         } catch (error) {
             console.error(error);
         }
     };
 
     return (
-        <S.Section>
+        <S.Section
+            className={`${
+                piuIdToDelete === id
+                    ? 'fade-out'
+                    : shouldAnimateIn
+                    ? 'fade-in'
+                    : ''
+            }`}
+        >
             <S.DivPrimary>
                 <S.InfoUser>
                     <S.ImgUser src={image} />
@@ -81,11 +103,8 @@ const CardItem: React.FC<Props> = ({
                     </S.Div>
                     {/* Renderiza a lixeira apenas se o usuário logado for o autor do Piu */}
                     {loggedInUserId === piuUserId && (
-                        <S.BtnLixeira>
-                            <S.ImgBtn
-                                onClick={handleDeleteClick}
-                                src="/assets/img/ImageButtons/lixeira.svg"
-                            />
+                        <S.BtnLixeira onClick={handleDeleteClick}>
+                            <S.ImgBtn src="/assets/img/ImageButtons/lixeira.svg" />
                         </S.BtnLixeira>
                     )}
                 </S.InfoUser>

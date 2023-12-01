@@ -1,5 +1,28 @@
-import styled from 'styled-components';
+/* eslint-disable @typescript-eslint/no-use-before-define */
+import styled, { keyframes } from 'styled-components';
 import { defaultTheme } from 'styles';
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+`;
+
+const fadeIn = keyframes`
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+`;
 
 export const Section = styled.section`
     background-color: ${defaultTheme.colors.primary.main};
@@ -14,6 +37,14 @@ export const Section = styled.section`
     gap: 30px;
     align-self: stretch;
     border-radius: 16px;
+
+    &.fade-out {
+        animation: ${fadeOut} 0.8s ease-out;
+    }
+
+    &.fade-in {
+        animation: ${fadeIn} 0.8s ease-in;
+    }
 
     @media only screen and (max-width: 770px) {
         width: 85%;
