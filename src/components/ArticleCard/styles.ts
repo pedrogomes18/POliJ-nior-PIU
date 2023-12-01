@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import { defaultTheme } from 'styles';
 
 export const DivPrimary = styled.div`
-    width: 95%;
+    width: 100%;
     margin: 0 auto;
     height: auto;
     border-bottom: 1px solid ${defaultTheme.colors.primary.light};
-    padding: 24px 0;
+    padding: 16px 0;
 `;
 
 export const DivContainer = styled.div`
@@ -14,15 +14,15 @@ export const DivContainer = styled.div`
     height: auto;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
+    align-items: flex-start;
 
     > div {
         background-color: transparent;
-        padding: 4px;
+        padding: 5px;
 
         > img {
-            width: 112px;
-            height: 112px;
+            width: 104px;
+            height: 104px;
             flex-shrink: 0;
         }
 
@@ -37,14 +37,11 @@ export const DivContainer = styled.div`
 
         > p {
             color: ${defaultTheme.colors.white};
-            font-feature-settings: 'clig' off, 'liga' off;
-            /* Body/Body Normal */
             font-family: NunitoRegular;
+            text-align: left;
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
-            line-height: 24px; /* 171.429% */
-            letter-spacing: 0.5px;
         }
     }
 `;

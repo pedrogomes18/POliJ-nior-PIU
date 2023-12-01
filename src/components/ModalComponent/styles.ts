@@ -53,9 +53,9 @@ export const Text = styled.h3`
 `;
 
 export const ExitButton = styled.button`
-    flex-direction: column;
     width: 100px;
     height: 40px;
+    text-align: center;
     color: black;
     font-size: 20px;
     border: none;
@@ -71,7 +71,6 @@ export const ExitButton = styled.button`
 `;
 
 export const ReturnButton = styled.button`
-    flex-direction: column;
     width: 100px;
     height: 40px;
     color: ${defaultTheme.colors.white};
