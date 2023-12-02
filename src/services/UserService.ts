@@ -46,6 +46,17 @@ export default class UserService {
         }
     }
 
+    // Pega o user pelo ID
+    static async getUserById(id: string): Promise<User> {
+        try {
+            const response: AxiosResponse<User> = await api.get(`/users/${id}`);
+            return response.data;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
     // Desloga
     static logout(): void {
         try {

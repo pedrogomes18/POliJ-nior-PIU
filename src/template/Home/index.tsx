@@ -12,6 +12,8 @@ import { toast, ToastContainer, ToastOptions } from 'react-toastify';
 import IPiu from 'interfaces/IPiu';
 import PiuService from 'services/PiuService';
 import { parseCookies } from 'nookies';
+import IUser from 'interfaces/IUser';
+import UserService from 'services/UserService';
 import * as S from './styles';
 
 const HomeTemplate = () => {
@@ -28,6 +30,7 @@ const HomeTemplate = () => {
     const [idUser, setIdUser] = useState('');
     const [isPiuCreated, setIsPiuCreated] = useState(false);
     const [shouldAnimateIn, setShouldAnimateIn] = useState(false);
+    const [user, setUser] = useState<IUser>();
 
     const menuItems = [
         { id: 1, text: 'Página Inicial', foto: 'home' },
@@ -43,6 +46,8 @@ const HomeTemplate = () => {
             const response = await PiuService.getPius();
             const cookies = parseCookies();
             const userIdLogged = cookies['@piupiuwer:userId'];
+            const userLogin = await UserService.getUserById(userIdLogged);
+            setUser(userLogin);
             setIdUser(userIdLogged);
             setPius(response);
         };
@@ -189,8 +194,8 @@ const HomeTemplate = () => {
                 </div>
                 <div className="userPhoto">
                     <img
-                        src="/assets/img/ImagesUser/pedro.png"
-                        alt="GRANDE SCRUM MASTER"
+                        src={user?.avatar || '/assets/img/ImagesUser/pedro.png'}
+                        alt={user?.firstName}
                     />
 
                     <button type="button" onClick={() => setIsOpen(!isOpen)}>

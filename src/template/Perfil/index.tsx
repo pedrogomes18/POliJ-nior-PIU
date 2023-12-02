@@ -14,6 +14,8 @@ import { toast, ToastContainer, ToastOptions } from 'react-toastify';
 import IPiu from 'interfaces/IPiu';
 import PiuService from 'services/PiuService';
 import { parseCookies } from 'nookies';
+import UserService from 'services/UserService';
+import IUser from 'interfaces/IUser';
 import * as S from './styles';
 
 const Perfil = () => {
@@ -28,6 +30,7 @@ const Perfil = () => {
     const [reloader, setReloader] = useState(false);
     const [idUser, setIdUser] = useState('');
     const [isPiuCreated, setIsPiuCreated] = useState(false);
+    const [user, setUser] = useState<IUser>();
 
     const menuItems = [
         { id: 1, text: 'Página Inicial', foto: 'home' },
@@ -43,7 +46,8 @@ const Perfil = () => {
             const cookies = parseCookies();
             const userIdLogged = cookies['@piupiuwer:userId'];
             const response = await PiuService.getPiuById(userIdLogged);
-            console.log(response);
+            const userLogin = await UserService.getUserById(userIdLogged);
+            setUser(userLogin);
             setIdUser(userIdLogged);
             setPius(response);
         };
@@ -171,8 +175,8 @@ const Perfil = () => {
                 </div>
                 <div className="userPhoto">
                     <img
-                        src="/assets/img/ImagesUser/pedro.png"
-                        alt="GRANDE SCRUM MASTER"
+                        src={user?.avatar || '/assets/img/ImagesUser/pedro.png'}
+                        alt={user?.firstName}
                     />
 
                     <button type="button" onClick={() => setIsOpen(!isOpen)}>
@@ -203,9 +207,16 @@ const Perfil = () => {
                     </div>
                 </S.HeaderContainer>
                 <S.Div>
-                    <h2>olá</h2>
+                    <div className="infoUser">
+                        <div>
+                            <img src={user?.avatar} alt={user?.firstName} />
+                        </div>
+                        <div>
+                            <h2>{`${user?.firstName} ${user?.lastName}`}</h2>
+                            <h4>@{user?.username}</h4>
+                        </div>
+                    </div>
                 </S.Div>
-                <S.Linha />
 
                 {pius
                     .slice()

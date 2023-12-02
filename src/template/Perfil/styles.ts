@@ -249,6 +249,7 @@ export const Feed = styled.div`
     overflow-y: scroll;
     padding: 32px;
     background-color: #151718;
+    position: relative;
 
     @media only screen and (max-width: 770px) {
         padding: 0;
@@ -262,7 +263,49 @@ export const Feed = styled.div`
 export const Div = styled.div`
     width: 100%;
     height: auto;
-    background-color: transparent;
+    background: var(
+        --institutional-blue-fade,
+        linear-gradient(270deg, #004c97 -0.02%, #33a8eb 99.98%)
+    );
+    padding: 24px 16px;
+    margin-bottom: 64px;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
+        rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px,
+        rgba(0, 0, 0, 0.07) 0px 16px 16px;
+
+    .infoUser {
+        display: flex;
+        position: relative;
+        top: 80px;
+        background-color: transparent;
+        flex-direction: row;
+        padding: 8px;
+        justify-content: flex-start;
+        align-items: center;
+
+        > div img {
+            width: 100px;
+            height: 100px;
+            border: 1px solid white;
+            margin-right: 18px;
+            border-radius: 50%;
+        }
+
+        > div h2 {
+            font-size: 24px;
+            color: white;
+            font-family: NunitoRegular;
+            text-shadow: 2px 4px 0px rgba(0, 0, 0, 0.68);
+        }
+
+        > div h4 {
+            font-size: 16px;
+            color: white;
+            font-family: NunitoRegular;
+            text-shadow: 2px 4px 0px rgba(0, 0, 0, 0.68);
+        }
+    }
 
     @media only screen and (max-width: 770px) {
         padding: 32px;
@@ -270,7 +313,7 @@ export const Div = styled.div`
 `;
 
 export const Article = styled.div`
-    width: 30%;
+    width: 35%;
     max-height: 100vh;
     overflow-y: scroll;
     padding-left: 10px;
