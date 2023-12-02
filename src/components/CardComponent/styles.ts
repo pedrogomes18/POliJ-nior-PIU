@@ -146,7 +146,7 @@ export const Div = styled.div`
     gap: 8px;
     margin: 0px 16px;
 
-    h2,
+    a,
     p {
         color: ${defaultTheme.colors.white};
         gap: 8px;
@@ -162,9 +162,10 @@ export const Div = styled.div`
         letter-spacing: 0.5px;
     }
 
-    h2 {
+    a {
         font-family: NunitoRegular;
         font-size: 20px;
+        text-decoration: none;
         font-style: normal;
         font-weight: 700;
         line-height: normal;

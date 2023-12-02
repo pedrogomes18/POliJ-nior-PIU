@@ -1,36 +1,39 @@
+/* eslint-disable no-shadow */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-console */
-import CardItem from 'components/CardComponent';
-import CardItemArticle from 'components/ArticleCard';
-import ModalComponent from 'components/ModalComponent';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast, ToastContainer, ToastOptions } from 'react-toastify';
 import IPiu from 'interfaces/IPiu';
 import PiuService from 'services/PiuService';
-import { parseCookies } from 'nookies';
 import UserService from 'services/UserService';
 import IUser from 'interfaces/IUser';
+import { parseCookies } from 'nookies';
+import CardItem from 'components/CardComponent';
+import CardItemArticle from 'components/ArticleCard';
+import ModalComponent from 'components/ModalComponent';
 import * as S from './styles';
 
 const Perfil = () => {
-    const [selectedItem, setSelectedItem]: [
-        number | null,
-        Dispatch<SetStateAction<number | null>>
-    ] = useState<number | null>(null);
-    const router = useRouter();
+    const [selectedItem, setSelectedItem] = useState<number | null>(null);
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [pius, setPius] = useState<IPiu[]>([]);
-    const [reloader, setReloader] = useState(false);
-    const [idUser, setIdUser] = useState('');
-    const [isPiuCreated, setIsPiuCreated] = useState(false);
-    const [user, setUser] = useState<IUser>();
+    const [reloader, setReloader] = useState<boolean>(false);
+    const [idUser, setIdUser] = useState<string>('');
+    const [idUserFeed, setIdUserFeed] = useState<IUser | undefined>(undefined);
+    const [isPiuCreated, setIsPiuCreated] = useState<boolean>(false);
+    const [userInfo, setUserInfo] = useState<IUser | undefined>(undefined);
+    const [userLog, setUserLog] = useState<IUser | undefined>(undefined);
+
+    const router = useRouter();
 
     const menuItems = [
         { id: 1, text: 'Página Inicial', foto: 'home' },
@@ -45,31 +48,51 @@ const Perfil = () => {
         const fetchPius = async () => {
             const cookies = parseCookies();
             const userIdLogged = cookies['@piupiuwer:userId'];
-            const response = await PiuService.getPiuById(userIdLogged);
-            const userLogin = await UserService.getUserById(userIdLogged);
-            setUser(userLogin);
-            setIdUser(userIdLogged);
-            setPius(response);
+
+            try {
+                const userFeedId = router.query;
+                const userIdFeed = userFeedId.id;
+
+                const [response, userInfo] = await Promise.all([
+                    PiuService.getPiuById(
+                        (userIdFeed as string) || (userIdLogged as string)
+                    ),
+                    UserService.getUserById(
+                        (userIdFeed as string) || (userIdLogged as string)
+                    )
+                ]);
+
+                const [responseUserLog, userInfoLog] = await Promise.all([
+                    PiuService.getPiuById(userIdLogged as string),
+                    UserService.getUserById(userIdLogged as string)
+                ]);
+
+                setUserInfo(userInfo);
+                setUserLog(userInfoLog);
+                setPius(response);
+                setIdUser(userIdLogged || '');
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
         };
 
         fetchPius();
-    }, [reloader]);
+    }, [reloader, router.query]);
 
-    const handleClick = (id: number | SetStateAction<number | null>) => {
+    const handleClick = (id: number) => {
         setSelectedItem(id);
         switch (id) {
             case 1:
                 router.push('/index');
                 break;
             case 5:
-                router.push('Perfil');
+                router.push('/Perfil');
                 break;
             default:
-                router.push('Found');
+                router.push('/Found');
         }
     };
 
-    // eslint-disable-next-line no-shadow
     const handleShowAlert = (text: string, type: string) => {
         const commonOptions: ToastOptions = {
             position: toast.POSITION.TOP_CENTER,
@@ -156,7 +179,6 @@ const Perfil = () => {
                 <div className="MenuContainer">
                     <ul>
                         {menuItems.map((item) => (
-                            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
                             <li
                                 key={item.id}
                                 className={
@@ -175,10 +197,12 @@ const Perfil = () => {
                 </div>
                 <div className="userPhoto">
                     <img
-                        src={user?.avatar || '/assets/img/ImagesUser/pedro.png'}
-                        alt={user?.firstName}
+                        src={
+                            userLog?.avatar ||
+                            '/assets/img/ImagesUser/pedro.png'
+                        }
+                        alt={userLog?.firstName}
                     />
-
                     <button type="button" onClick={() => setIsOpen(!isOpen)}>
                         <img
                             src="/assets/img/ImagensLogin/Logout.svg"
@@ -209,38 +233,37 @@ const Perfil = () => {
                 <S.Div>
                     <div className="infoUser">
                         <div>
-                            <img src={user?.avatar} alt={user?.firstName} />
+                            <img
+                                src={userInfo?.avatar}
+                                alt={userInfo?.firstName}
+                            />
                         </div>
                         <div>
-                            <h2>{`${user?.firstName} ${user?.lastName}`}</h2>
-                            <h4>@{user?.username}</h4>
+                            <h2>{`${userInfo?.firstName} ${userInfo?.lastName}`}</h2>
+                            <h4>@{userInfo?.username}</h4>
                         </div>
                     </div>
                 </S.Div>
-
                 {pius
                     .slice()
                     .reverse()
-                    .map((piu: IPiu) => {
-                        return (
-                            <CardItem
-                                key={piu.id}
-                                name={piu.user.firstName}
-                                username={piu.user.username}
-                                image={piu.user.avatar}
-                                text={piu.text}
-                                like={piu.likes}
-                                id={piu.id}
-                                loggedInUserId={idUser}
-                                piuUserId={piu.user.id}
-                                onPiuDeleted={handlePiuDeleted}
-                                onPiuPatch={() => handlePiuPatch(piu.id)}
-                                onPiuCreated={() => setIsPiuCreated(false)}
-                            />
-                        );
-                    })}
+                    .map((piu: IPiu) => (
+                        <CardItem
+                            key={piu.id}
+                            name={piu.user.firstName}
+                            username={piu.user.username}
+                            image={piu.user.avatar}
+                            text={piu.text}
+                            like={piu.likes}
+                            id={piu.id}
+                            loggedInUserId={idUser}
+                            piuUserId={piu.user.id}
+                            onPiuDeleted={handlePiuDeleted}
+                            onPiuPatch={() => handlePiuPatch(piu.id)}
+                            onPiuCreated={() => setIsPiuCreated(false)}
+                        />
+                    ))}
             </S.Feed>
-            {/* Adicione o ToastContainer aqui */}
             <ToastContainer />
             <S.Article>
                 <S.ContainerTitle>
@@ -279,4 +302,5 @@ const Perfil = () => {
         </S.Container>
     );
 };
+
 export default Perfil;

@@ -1,9 +1,11 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-console */
 /* eslint-disable react/button-has-type */
 // eslint-disable-next-line react/button-has-type
 import { useEffect, useState } from 'react';
 import IPiuLike from 'interfaces/IPiuLike';
+import Link from 'next/link';
 import PiuService from 'services/PiuService';
 import * as S from './styles';
 
@@ -98,7 +100,14 @@ const CardItem: React.FC<Props> = ({
                     <S.ImgUser src={image} />
 
                     <S.Div>
-                        <h2>{name}</h2>
+                        <Link
+                            href={{
+                                pathname: '/Perfil',
+                                query: { id: piuUserId }
+                            }}
+                        >
+                            <a>{name}</a>
+                        </Link>
                         <p>@{username}</p>
                     </S.Div>
                     {/* Renderiza a lixeira apenas se o usuário logado for o autor do Piu */}
