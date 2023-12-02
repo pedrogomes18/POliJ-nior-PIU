@@ -2,7 +2,6 @@
 import { AxiosResponse } from 'axios';
 import User from 'interfaces/IUser';
 import { setCookie, destroyCookie } from 'nookies';
-import router from 'next/router';
 import api from './api';
 
 interface ILoginRequest {
@@ -16,6 +15,7 @@ interface ILoginResponse {
 }
 
 export default class UserService {
+    // LOga KKKKKKK
     static async login(data: ILoginRequest): Promise<ILoginResponse> {
         try {
             this.destroyCookies();
@@ -33,6 +33,7 @@ export default class UserService {
         }
     }
 
+    // Destroi os COOKIS e Limpa o navegador
     static destroyCookies(): void {
         try {
             destroyCookie(undefined, '@piupiuwer:token');
@@ -45,6 +46,7 @@ export default class UserService {
         }
     }
 
+    // Desloga
     static logout(): void {
         try {
             this.destroyCookies();

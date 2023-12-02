@@ -1,3 +1,5 @@
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-use-before-define */
@@ -14,7 +16,7 @@ import PiuService from 'services/PiuService';
 import { parseCookies } from 'nookies';
 import * as S from './styles';
 
-const HomeTemplate = () => {
+const Perfil = () => {
     const [selectedItem, setSelectedItem]: [
         number | null,
         Dispatch<SetStateAction<number | null>>
@@ -24,10 +26,8 @@ const HomeTemplate = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [pius, setPius] = useState<IPiu[]>([]);
     const [reloader, setReloader] = useState(false);
-    const [textPiu, setTextPiu] = useState<string>('');
     const [idUser, setIdUser] = useState('');
     const [isPiuCreated, setIsPiuCreated] = useState(false);
-    const [shouldAnimateIn, setShouldAnimateIn] = useState(false);
 
     const menuItems = [
         { id: 1, text: 'Página Inicial', foto: 'home' },
@@ -40,9 +40,10 @@ const HomeTemplate = () => {
 
     useEffect(() => {
         const fetchPius = async () => {
-            const response = await PiuService.getPius();
             const cookies = parseCookies();
             const userIdLogged = cookies['@piupiuwer:userId'];
+            const response = await PiuService.getPiuById(userIdLogged);
+            console.log(response);
             setIdUser(userIdLogged);
             setPius(response);
         };
@@ -61,25 +62,6 @@ const HomeTemplate = () => {
                 break;
             default:
                 router.push('Found');
-        }
-    };
-
-    // Aqui está fznd os PIUS
-    const envia: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-        setTextPiu(e.target.value);
-    };
-
-    const handlePiu = async () => {
-        try {
-            const createdPiu = await PiuService.createPiu(textPiu);
-            console.log(createdPiu.user.username, createdPiu.createdAt);
-            handleShowAlert('Publicando...', 'sucess');
-            setTextPiu('');
-            setIsPiuCreated(true);
-            setShouldAnimateIn(true);
-            setReloader(!reloader);
-        } catch (error) {
-            console.log(error);
         }
     };
 
@@ -221,48 +203,7 @@ const HomeTemplate = () => {
                     </div>
                 </S.HeaderContainer>
                 <S.Div>
-                    <S.InputContainer>
-                        <S.Input placeholder="Ouvir um piu..." />
-                        <S.ImgLupa src="/assets/img/lupa.svg" />
-                    </S.InputContainer>
-
-                    <S.ContainerPiar>
-                        <S.TeaxtArea
-                            placeholder="Quero dar um piu..."
-                            value={textPiu}
-                            onChange={envia}
-                        />
-                        <S.Buttons>
-                            <S.BtnImg>
-                                <S.ImgBtn src="/assets/img/ImageButtons/img.svg" />
-                            </S.BtnImg>
-
-                            <S.BtnImg>
-                                <S.ImgBtn src="/assets/img/ImageButtons/Video.svg" />
-                            </S.BtnImg>
-
-                            <S.BtnImg>
-                                <S.ImgBtn src="/assets/img/ImageButtons/Frame.svg" />
-                            </S.BtnImg>
-
-                            <S.BtnImg>
-                                <S.ImgBtn src="/assets/img/ImageButtons/Tag.svg" />
-                            </S.BtnImg>
-
-                            <S.BtnImg>
-                                <S.ImgBtn src="/assets/img/ImageButtons/gif.svg" />
-                            </S.BtnImg>
-
-                            <S.BtnEnviar
-                                onClick={() => {
-                                    handlePiu();
-                                    setShouldAnimateIn(true); // Ajuste aqui
-                                }}
-                            >
-                                <S.ImgBtn src="/assets/img/ImageButtons/aviao.svg" />
-                            </S.BtnEnviar>
-                        </S.Buttons>
-                    </S.ContainerPiar>
+                    <h2>olá</h2>
                 </S.Div>
                 <S.Linha />
 
@@ -327,4 +268,4 @@ const HomeTemplate = () => {
         </S.Container>
     );
 };
-export default HomeTemplate;
+export default Perfil;
