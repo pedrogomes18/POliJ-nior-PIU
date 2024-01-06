@@ -12,7 +12,7 @@ const BtnLogin: React.FC<BtnProps> = ({ text, password, email }) => {
     const router = useRouter();
     const LogarFds = async () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const response = await UserService.login({ email, password });
+        await UserService.login({ email, password });
         router.push('index');
     };
     return <S.BtnLogin onClick={LogarFds}>{text}</S.BtnLogin>;

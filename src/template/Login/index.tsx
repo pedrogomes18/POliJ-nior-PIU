@@ -1,14 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import InputComponent from 'components/InputComponent';
-import BtnLogin from 'components/BtnComponent';
-import { useState } from 'react';
 import LoginComponent from 'components/LoginComponent';
 import * as S from './styles';
 
 const LoginTemplate = () => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-
     return (
         <S.Div>
             <S.Section>
